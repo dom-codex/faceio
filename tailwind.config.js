@@ -11,7 +11,7 @@ module.exports = {
                 "skyblue":"#00b5E2",
                 "silver":"#BEBBBA",
                 "sandyBrown":"#EEAF52",
-                "mediumGreen":"63BA64"
+                "mediumGreen":"#63BA64"
             }
         }
     }
