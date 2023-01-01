@@ -4,10 +4,10 @@ import InfoBanner from "./infobanner"
 import DetailsCard from "./detailsCard"
 
 
-const DashboardContainer = ({data,sdata,status, handler})=>{
+const DashboardContainer = ({data,sdata,status, handler,hideBanner})=>{
 return <div>
     <ImageCard name={"Glory Olije"} matric={"COT/3000/2018"}/>
-<InfoBanner status={status} handler={handler} />
+{!hideBanner&&<InfoBanner status={status} handler={handler} />}
 <DetailsCard data={data}/>
 <div className={"my-4"}>
     <DetailsCard data={sdata}/>

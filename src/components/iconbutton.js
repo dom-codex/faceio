@@ -6,7 +6,13 @@ const IconButton = ({text,icon,mode,handler})=>{
             return "bg-mediumGreen hover:bg-mediumGreen/80 hover:border-mediumGreen"
         }else if(mode =="logout"){
             return "bg-red-400 hover:bg-red-600 hover:border-red-500 text-white"
-        }else{
+        }else if(mode=="submit"){
+            return "bg-sandyBrown hover:bg-sandyBrown/80 hover:border-sandyBrown mr-2"
+        }
+        else if(mode =="next"){
+            return "bg-skyblue hover:bg-skyblue/80 hover:border-skyblue"
+        }
+        else{
           return "bg-mediumGreen hover:bg-mediumGreen/80 hover:border-mediumGreen"  
         }
     }
