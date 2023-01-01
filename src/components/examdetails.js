@@ -29,6 +29,9 @@ const ExamDetails = ()=>{
              <div>
                  <input type={"text"} placeholder={"Session e.g 2022/2023"} className={"w-[280px] block m-auto border-2 border-gray-200 p-3 rounded-md mb-2"}/>
              </div>
+             <div>
+                 <input type={"text"} placeholder={"Course Code CSC 111"} className={"w-[280px] block m-auto border-2 border-gray-200 p-3 rounded-md mb-2"}/>
+             </div>
          </div>
      </div>
  </div>
