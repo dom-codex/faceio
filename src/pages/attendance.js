@@ -2,6 +2,8 @@ import React,{useRef} from "react"
 import { useReactToPrint } from "react-to-print";
 import Header from "../components/header";
 import IconButton from "../components/iconbutton";
+import OptionsDialog from "../components/optionsdialog";
+
 class AttendanceList extends React.Component{
     render (){
         return  <div className={"w-[75%] m-auto"}>
@@ -24,11 +26,15 @@ class AttendanceList extends React.Component{
 const Attendance = ()=>{
   const table = useRef()
   const printDoc = useReactToPrint({
-      content:()=>table.current
+      content:()=>table.current,
+      documentTitle:"Attendance for 2022/2023 100L CSC 111 First Semester Examination -Computer Science Department",
+            onAfterPrint:()=>{
+         // alert("printed")
+      }
   })
 return <section>
     <Header text={""}/>
-
+<OptionsDialog text={"Take me to homepage?"}/>
 <AttendanceList ref={table}/>
 <div className={"mt-4"}>
             <IconButton text={"Download as PDF"} handler={printDoc}/>
