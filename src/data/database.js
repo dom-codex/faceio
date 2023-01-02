@@ -14,6 +14,11 @@ const students = [
         gender:"FEMALE"
     }
 ]
+const supervisor = {
+    name:"Mr Dominic",
+    id:"1234",
+    password:"123456789"
+}
 //handlers()
 const saveToLocalStorage = (storageKey,data)=>{
 localStorage.setItem(storageKey,JSON.stringify(data))
@@ -35,4 +40,11 @@ const authStudent = (matric,password)=>{
     })
     return student
 }
-export {authStudent,saveToLocalStorage,clearLocalStorage,getItemFromStorage}
+const authSupervisor = (id,password)=>{
+    if(password===supervisor.password && id === supervisor.id){
+        saveToLocalStorage("supervisor",JSON.stringify(supervisor))
+        return supervisor
+    }
+    return null
+}
+export {authStudent,saveToLocalStorage,clearLocalStorage,getItemFromStorage,authSupervisor}
