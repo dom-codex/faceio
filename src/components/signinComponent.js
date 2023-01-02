@@ -2,7 +2,7 @@ import React from "react"
 import FormInput from "./formInput"
 import IconButton from "./iconbutton"
 import Logo from "../images/logo-fupre.png"
-const LoginContainer = ({mode,IdformHandler,passwordFormHandler})=>{
+const LoginContainer = ({mode,IdformHandler,passwordFormHandler,btnHandler})=>{
    const modePlaceHolderSelector=()=>{
        if(mode=="Student"){
            return "Matric Number"
@@ -20,7 +20,7 @@ return <div className={"flex flex-col items-center pt-[18px] "}>
 <FormInput placeholder={"password"} type={"password"} inputHandler={passwordFormHandler} icon={1}/>  
 </div>
 <div className={"w-[85%] mb-2 mt-2"}>
-<IconButton text={"Login"}/> </div>
+<IconButton text={"Login"} handler={btnHandler}/> </div>
 </div>
 }
 export default LoginContainer
