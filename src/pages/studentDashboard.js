@@ -1,25 +1,30 @@
 import React from "react"
+import useLocation from "wouter/use-location"
 import DashboardContainer from "../components/dashboardContainer"
 import Header from "../components/header"
 import IconButton from "../components/iconbutton"
-
-//DUMMY DATA
-const data = [{label:"Email",text:"gloflex@gmail.com"},{label:"Phone",text:"0810100000"},{label:"Gender",text:"Female"}]
-//DUMMY DATA FOR SCHOOL DETAILS
-const sdata = [{label:"Department",text:"Computer Science"},{label:"College",text:"Science"},{label:"Level",text:"400L"}]
-
+import { clearLocalStorage, getItemFromStorage } from "../data/database"
 const StudentDashBoard = ()=>{
+    const student = getItemFromStorage("student")
+const [loaction,setLocation] = useLocation()
     const logoutHandler = () =>{
-        console.log("Logging out...")
+        clearLocalStorage()
+        setLocation("/student/login")
     }
     const antiImpersonationHandler = ()=>{
         console.log("init....")
     }
+const formatData = (type)=>{
+if(type=="personal"){
+    return [{label:"Email",text:student.email},{label:"Phone",text:student.phone},{label:"Gender",text:student.gender}]
+}
+return [{label:"Department",text:student.department},{label:"College",text:student.college},{label:"Level",text:student.level}]
+}
 return <section>
-<Header/>
+<Header text={"Student Dashboard"}/>
 <DashboardContainer handler={
     antiImpersonationHandler
-} data={data} sdata={sdata} status={false}/>
+} data={formatData("personal")} sdata={formatData("")} status={student.facialBiometricActive}/>
 <div>
     <div><IconButton text={"logout"} handler={logoutHandler} icon={1} mode={"logout"}/></div>
 </div>
