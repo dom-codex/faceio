@@ -12,14 +12,14 @@ const LookUpResult = ({matric})=>{
     }
     const nextCandidateHandler=()=>{
         //add student to attendance list
-        addCandidateToAttendance(student)
+        addCandidateToAttendance({...student,timeIn:Date.now().toLocaleString()})
         //relaunc widget
     }
     const submitHandler = ()=>{
         //add to attendance
-        addCandidateToAttendance(student)
+        addCandidateToAttendance({...student,timeIn:Date.now().toLocaleString()})
         //nav to attendance
-        setLocation("exam/attendance")
+        setLocation("/exam/attendance")
     }
     if(student==null){
         //show dialog

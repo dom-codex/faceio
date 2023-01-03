@@ -108,7 +108,12 @@ const getCollege = ()=>{
 const addCandidateToAttendance = (student)=>{
  attendance.push(student)
 }
+const getAttandanceList = ()=>{
+    console.log(attendance)
+    return [...attendance]
+}
 const clearAttendance = ()=>{
     attendance = []
 }
-export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance }
+
+export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance,getAttandanceList }
