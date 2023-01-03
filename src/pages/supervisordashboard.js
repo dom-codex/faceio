@@ -4,13 +4,13 @@ import Header from "../components/header"
 import IconButton from "../components/iconbutton"
 
 const SupervisorDashboard = ()=>{
-    const downloadHandler = () =>{}
+    const beginBiometricVerification = () =>{}
 return <section>
-<Header/>
+<Header text={"Supervisor Dashboard"}/>
 <div className={"flex justify-end mt-2 mr-2"}>
     //get download icon
-<IconButton text={"Download Sheet"} handler={downloadHandler}/> </div>
-<FacialCard/>
+</div>
+<FacialCard handler={beginBiometricVerification}/>
 </section>
 }
 export default SupervisorDashboard;
