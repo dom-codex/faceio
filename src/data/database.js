@@ -14,6 +14,7 @@ const students = [
         gender: "FEMALE"
     }
 ]
+let attendance = []
 const supervisor = {
     name: "Mr Dominic",
     id: "1234",
@@ -79,6 +80,15 @@ const authStudent = (matric, password) => {
     })
     return student
 }
+const findStudentById = (id)=>{
+    let student = null
+    students.forEach(s=>{
+        if(s.applicationId === id){
+            student = s
+        }
+    })
+    return student
+}
 const authSupervisor = (id, password) => {
     if (password === supervisor.password && id === supervisor.id) {
         saveToLocalStorage("supervisor", JSON.stringify(supervisor))
@@ -95,4 +105,10 @@ const getDepartments=()=>{
 const getCollege = ()=>{
     return college
 }
-export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege }
+const addCandidateToAttendance = (student)=>{
+ attendance.push(student)
+}
+const clearAttendance = ()=>{
+    attendance = []
+}
+export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance }

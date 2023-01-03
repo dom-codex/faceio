@@ -1,20 +1,47 @@
 import React from "react"
+import useLocation from "wouter/use-location"
 import DashboardContainer from "../components/dashboardContainer"
 import Header from "../components/header"
 import IconButton from "../components/iconbutton"
-//DUMMY DATA
-const data = [{label:"Email",text:"gloflex@gmail.com"},{label:"Phone",text:"0810100000"},{label:"Gender",text:"Female"}]
-//DUMMY DATA FOR SCHOOL DETAILS
-const sdata = [{label:"Department",text:"Computer Science"},{label:"College",text:"Science"},{label:"Level",text:"400L"}]
-
-const LookUpResult = ()=>{
+import { addCandidateToAttendance, findStudentById } from "../data/database"
+const LookUpResult = ({matric})=>{
+    const [location,setLocation] = useLocation()
+    const student = findStudentById(matric)
+    const declineEntry = ()=>{
+        //relaunc widget
+    }
+    const nextCandidateHandler=()=>{
+        //add student to attendance list
+        addCandidateToAttendance(student)
+        //relaunc widget
+    }
+    const submitHandler = ()=>{
+        //add to attendance
+        addCandidateToAttendance(student)
+        //nav to attendance
+        setLocation("exam/attendance")
+    }
+    if(student==null){
+        //show dialog
+        //relunch widget
+        return
+    }
+    const formatData = (type)=>{
+        if(type=="personal"){
+            return [{label:"Email",text:student.email},{label:"Phone",text:student.phone},{label:"Gender",text:student.gender}]
+        }
+        return [{label:"Department",text:student.department},{label:"College",text:student.college},{label:"Level",text:student.level}]
+        }
 return <section>
-<Header/>
+<Header text={"Student Lookup result"}/>
 <p className={"mt-4 text-[1.35em] font-bsans text-sandyBrown"}>Facial Lookup Result</p>
-<DashboardContainer sdata={sdata} data={data} handler={()=>{}} hideBanner={true}/>
+<DashboardContainer sdata={formatData("personal")} data={formatData()} handler={()=>{}} hideBanner={true}/>
 <div className={"flex justify-center mb-4"}>
-    <IconButton text={"Submit Checklist"} mode={"submit"}/>
-    <IconButton text={"Next Candidate"} mode={"next"}/>
+    <IconButton text={"Submit Checklist"} mode={"submit"} handler={submitHandler}/>
+    <IconButton text={"Next Candidate"} mode={"next"} handler={nextCandidateHandler}/>
+</div>
+<div className={"my-8"}>
+    <button className={"text-red-500 hover:text-red-600 hover:border-2 hover:border-red-500 hover:p-2 rounded-md"} onClick={declineEntry}> Decline Entry</button>
 </div>
 </section>
 }

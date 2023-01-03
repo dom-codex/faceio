@@ -5,10 +5,10 @@ import DetailsCard from "./detailsCard"
 import { getItemFromStorage } from "../data/database"
 
 
-const DashboardContainer = ({data,sdata,status, handler,hideBanner})=>{
-const student = getItemFromStorage("student")
+const DashboardContainer = ({data,sdata,status, handler,name,matric,hideBanner})=>{
+//const student = getItemFromStorage("student")
 return <div>
-    <ImageCard name={student.name} matric={student.matric}/>
+    <ImageCard name={name} matric={matric}/>
 {!hideBanner&&<InfoBanner status={status} handler={handler} />}
 <DetailsCard data={data}/>
 <div className={"my-4"}>

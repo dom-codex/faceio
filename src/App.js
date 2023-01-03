@@ -15,7 +15,7 @@ function App() {
       <Route component={StudentDashBoard} path={"/student/dashboard"}/>
       <Route component={SupervisorLogin} path={"/supervisor/login"}/>
       <Route component={SupervisorDashboard} path={"/supervisor/dashboard"}/>
-      <Route component={LookUpResult} path={"/supervisor/lookup"}/>
+      <Route path={"/supervisor/lookup/:matric"}>{(params)=><LookUpResult matric={params.matric}/>}</Route>
       <Route component={Attendance} path={"/exam/attendance"}/>
     </div>
   );
