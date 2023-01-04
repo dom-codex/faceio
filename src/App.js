@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect} from "react"
 import {Route} from "wouter"
 import SignInPage from './pages/signin';
 import StudentDashBoard from './pages/studentDashboard';
@@ -7,7 +6,6 @@ import SupervisorLogin from './pages/supervisorLogin';
 import SupervisorDashboard from './pages/supervisordashboard';
 import LookUpResult from './pages/lookupresult';
 import Attendance from './pages/attendance';
-
 function App() {
   return (
     <div className="App">

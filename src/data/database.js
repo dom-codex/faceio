@@ -10,7 +10,7 @@ const students = [
         applicationId: "00AB56U",
         picId: 0,
         password: "123456789",
-        facialBiometricActive: false,
+        facialBiometricActive: true,
         gender: "FEMALE"
     }
 ]
@@ -115,5 +115,8 @@ const getAttandanceList = ()=>{
 const clearAttendance = ()=>{
     attendance = []
 }
-
-export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance,getAttandanceList }
+const updateBiometricStatus = (value)=>{
+    const student = JSON.parse(getItemFromStorage("student"))
+    saveToLocalStorage("student",{...student,facialBiometricActive:value})
+}
+export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance,getAttandanceList,updateBiometricStatus }
