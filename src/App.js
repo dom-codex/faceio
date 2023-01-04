@@ -1,3 +1,5 @@
+/*global someFunction, a*/
+/*eslint no-undef: "error"*/
 import React,{useEffect} from "react"
 import {Route} from "wouter"
 import SignInPage from './pages/signin';
