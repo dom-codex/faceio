@@ -34,13 +34,13 @@ const LookUpResult = ({matric})=>{
         }
 return <section>
 <Header text={"Student Lookup result"}/>
-<p className={"mt-4 text-[1.35em] font-bsans text-sandyBrown"}>Facial Lookup Result</p>
-<DashboardContainer sdata={formatData("personal")} data={formatData()} handler={()=>{}} hideBanner={true}/>
+<p className={"mt-4 text-[1.35em] font-bsans text-sandyBrown text-center"}>Facial Lookup Result</p>
+<DashboardContainer sdata={formatData("personal")} data={formatData()} handler={()=>{}} hideBanner={true} name={student.name} matric={student.matric}/>
 <div className={"flex justify-center mb-4"}>
     <IconButton text={"Submit Checklist"} mode={"submit"} handler={submitHandler}/>
     <IconButton text={"Next Candidate"} mode={"next"} handler={nextCandidateHandler}/>
 </div>
-<div className={"my-8"}>
+<div className={"my-8 text-center"}>
     <button className={"text-red-500 hover:text-red-600 hover:border-2 hover:border-red-500 hover:p-2 rounded-md"} onClick={declineEntry}> Decline Entry</button>
 </div>
 </section>

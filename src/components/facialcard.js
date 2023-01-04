@@ -1,10 +1,10 @@
 /*global someFunction, a*/
 /*eslint no-undef: "error"*/
-import React, { useState,useRef } from "react"
+import React, { useState,useRef, useEffect } from "react"
 import FacialIcon from "../images/facial.png"
 import BeginIcon from "../images/begin.png"
 import ExamDetails from "../components/examdetails"
-import { saveToLocalStorage } from "../data/database"
+import { saveToLocalStorage,getItemFromStorage } from "../data/database"
 import useLocation from "wouter/use-location"
 import { getFaceIO } from "../faceio.js"
 import OptionsDialog from "./optionsdialog"
@@ -16,6 +16,7 @@ const FacialCard = ({ handler }) => {
     const [semester, setSemester] = useState("")
     const [session, setSession] = useState("")
     const [courseCode, setCourseCode] = useState("")
+    const [btnText,setBtnText] = useState("Begin Batch Verification")
     const formHandler = (type, value) => {
         switch (type) {
             case "department": { setDepartment(value); break; }
@@ -23,6 +24,17 @@ const FacialCard = ({ handler }) => {
             case "semester": { setSemester(value); break; }
             case "session": { setSession(value); break; }
             case "coursecode": { setCourseCode(value); break; }
+        }
+    }
+    const loadInput = ()=>{
+        const inputs = JSON.parse(getItemFromStorage("examDetails"))
+        if(inputs !=null || inputs !=undefined){
+            formHandler("department",inputs.department)
+            formHandler("level", inputs.level)
+            formHandler("semester", inputs.semester)
+            formHandler("session", inputs.session)
+            formHandler("coursecode", inputs.courseCode) 
+            setBtnText("Continue Batch Verification")  
         }
     }
     const clearInput = () => {
@@ -57,6 +69,7 @@ const FacialCard = ({ handler }) => {
         } catch (e) {
             //show dialog
             showDialog()
+            loadInput()
         }
 
     }
@@ -71,13 +84,16 @@ const FacialCard = ({ handler }) => {
         }
         alert("invalid input detected")
     }
+    useEffect(()=>{
+        loadInput()
+    },[])
     return <div>
         <OptionsDialog ref={dialogRef}/>
         <img src={FacialIcon} alt={"Facial recognition image"}
             className={"w-[280px] h-[280px] m-auto"} />
         <ExamDetails values={{department,level,session,semester,course:courseCode}} formHandler={formHandler} />
         <button onClick={beginVerification} className={"flex items-center bg-mediumGreen p-2 px-4 rounded-sm m-auto my-4 hover:bg-mediumGreen/70"}>
-            Begin Batch verification
+            {btnText}
             <img src={BeginIcon} alt={"begin icon"} className={"w-[18px] h-[18px] ml-2"} />
         </button>
     </div>
