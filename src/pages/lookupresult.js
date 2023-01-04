@@ -1,14 +1,28 @@
-import React,{useState} from "react"
+import React,{useState,useRef} from "react"
 import useLocation from "wouter/use-location"
 import DashboardContainer from "../components/dashboardContainer"
 import Header from "../components/header"
 import IconButton from "../components/iconbutton"
 import { addCandidateToAttendance, findStudentById } from "../data/database"
+import OptionsDialog from "../components/optionsdialog"
 const LookUpResult = ({matric})=>{
+    const dialogRef = useRef()
     const [location,setLocation] = useLocation()
     const student = findStudentById(matric)
+    const showDialog = (text,p,n)=>{
+        dialogRef.current.displayDialog(text,p,n)
+    }
+    const hideDialog = ()=>{
+        dialogRef.current.hideDialog()
+    }
     const declineEntry = ()=>{
-        //relaunc widget
+        showDialog("Are you sure you dont't want to include this candidate",()=>{
+            hideDialog()
+            setLocation("/supervisor/dashboard")
+        },()=>{
+            hideDialog()
+        })
+
     }
     const nextCandidateHandler=()=>{
         //add student to attendance list
@@ -16,10 +30,14 @@ const LookUpResult = ({matric})=>{
         //relaunc widget
     }
     const submitHandler = ()=>{
-        //add to attendance
+        showDialog("Are you sure you want to submit checklist?",()=>{
+             //add to attendance
         addCandidateToAttendance({...student,timeIn:Date.now().toLocaleString()})
-        //nav to attendance
-        setLocation("/exam/attendance")
+           //nav to attendance
+           setLocation("/exam/attendance")
+        },()=>{
+            hideDialog()
+        })
     }
     if(student==null){
         //show dialog
@@ -33,6 +51,7 @@ const LookUpResult = ({matric})=>{
         return [{label:"Department",text:student.department},{label:"College",text:student.college},{label:"Level",text:student.level}]
         }
 return <section>
+    <OptionsDialog ref={dialogRef}/>
 <Header text={"Student Lookup result"}/>
 <p className={"mt-4 text-[1.35em] font-bsans text-sandyBrown text-center"}>Facial Lookup Result</p>
 <DashboardContainer sdata={formatData("personal")} data={formatData()} handler={()=>{}} hideBanner={true} name={student.name} matric={student.matric}/>
