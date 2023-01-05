@@ -140,4 +140,11 @@ export const documentExists = (snap)=>{
     });
     return docs.length >0
 }
+export const getFormattedTimeOnly = ()=>{
+    const _date = new Date()
+    const  hours= _date.getUTCHours()
+    const minutes = _date.getUTCMinutes() + 1
+    const seconds = _date.getUTCSeconds()
+    return `${hours}:${minutes}:${seconds}`
+}
 export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance,getAttandanceList,updateBiometricStatus }

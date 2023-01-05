@@ -4,7 +4,7 @@ import React, { useState,useRef, useEffect } from "react"
 import FacialIcon from "../images/facial.png"
 import BeginIcon from "../images/begin.png"
 import ExamDetails from "../components/examdetails"
-import { saveToLocalStorage,getItemFromStorage } from "../data/database"
+import { saveToLocalStorage,getItemFromStorage, clearLocalStorage } from "../data/database"
 import useLocation from "wouter/use-location"
 import { getFaceIO } from "../faceio.js"
 import OptionsDialog from "./optionsdialog"
@@ -84,6 +84,12 @@ const FacialCard = () => {
         }
         alert("invalid input detected")
     }
+    const resetForm = ()=>{
+        clearLocalStorage("examDetails")
+        setBtnText("Begin Batch Verification")
+        clearInput()
+    }
+
     useEffect(()=>{
         loadInput()
     },[])
@@ -92,10 +98,14 @@ const FacialCard = () => {
         <img src={FacialIcon} alt={"Facial recognition image"}
             className={"w-[280px] h-[280px] m-auto"} />
         <ExamDetails values={{department,level,session,semester,course:courseCode}} formHandler={formHandler} />
-        <button onClick={beginVerification} className={"flex items-center bg-mediumGreen p-2 px-4 rounded-sm m-auto my-4 hover:bg-mediumGreen/70"}>
+        <div className={"flex justify-center w-[80%] m-auto "}>
+           <button onClick={beginVerification} className={"flex items-center bg-mediumGreen p-2 px-4 rounded-sm my-4 hover:bg-mediumGreen/70"}>
             {btnText}
             <img src={BeginIcon} alt={"begin icon"} className={"w-[18px] h-[18px] ml-2"} />
         </button>
+           <button onClick={resetForm} className={"ml-3 text-sandyBrown hover:underline "}>Reset</button>
+        </div>
+      
     </div>
 }
 export default FacialCard;
