@@ -5,6 +5,7 @@ import Header from "../components/header"
 import IconButton from "../components/iconbutton"
 import { addCandidateToAttendance, findStudentById } from "../data/database"
 import OptionsDialog from "../components/optionsdialog"
+import {getFaceIO} from "../faceio"
 const LookUpResult = ({matric})=>{
     const dialogRef = useRef()
     const [location,setLocation] = useLocation()
@@ -24,10 +25,31 @@ const LookUpResult = ({matric})=>{
         })
 
     }
+    const beginRecognition = async()=>{
+        //launch widget
+        try {
+         const fio = getFaceIO()
+         const response = await fio.authenticate({
+             locale: "auto"
+         });
+         const applicationId = response.payload.applicationId
+     setLocation(`/supervisor/lookup/${applicationId}`)
+     } catch (e) {
+         //show dialog
+         showDialog("User not found,Do you want to retry?",()=>{
+             beginRecognition()
+         },()=>{
+            hideDialog() 
+         })
+     }
+
+ }
     const nextCandidateHandler=()=>{
         //add student to attendance list
         addCandidateToAttendance({...student,timeIn:Date.now().toLocaleString()})
         //relaunc widget
+        beginRecognition()
+
     }
     const submitHandler = ()=>{
         showDialog("Are you sure you want to submit checklist?",()=>{

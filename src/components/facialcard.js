@@ -8,7 +8,7 @@ import { saveToLocalStorage,getItemFromStorage } from "../data/database"
 import useLocation from "wouter/use-location"
 import { getFaceIO } from "../faceio.js"
 import OptionsDialog from "./optionsdialog"
-const FacialCard = ({ handler }) => {
+const FacialCard = () => {
     const dialogRef = useRef()
     const [location, setLocation] = useLocation()
     const [department, setDepartment] = useState("")
