@@ -10,7 +10,7 @@ const LoginContainer = ({mode,IdformHandler,passwordFormHandler,btnHandler})=>{
            return "Supervisor ID"
        }
    }
-return <div className={"flex flex-col items-center pt-[18px] "}>
+return <div className={"flex flex-col items-center pt-[18px]  max-w-[520px] m-auto"}>
 <img src={Logo} alt={"school logo"} className={"w-[100px] h-[100px]"}/>
 <p className={"text-[2em] font-boo mb-2"}><span className={"font-sans text-sandyBrown"}>FaceIO</span> {mode} Login</p>
 <div className={"w-[85%] mb-2"}>
