@@ -119,4 +119,25 @@ const updateBiometricStatus = (value)=>{
     const student = JSON.parse(getItemFromStorage("student"))
     saveToLocalStorage("student",{...student,facialBiometricActive:value})
 }
+//DATABASE METHODS
+export const extractDocumentFromSnapShot = (snapshot)=>{
+    const data = []
+    let i = 0
+    snapshot.forEach(doc=>{
+        const docdata = doc.data()
+        data.push({...docdata,id:doc.id,snapshot:snapshot.docs[i],isModifying:false})
+        ++i
+    })
+    return {
+        hasData:data.length> 0,
+        data:data
+    }
+}
+export const documentExists = (snap)=>{
+    const docs = []
+    snap.forEach(doc=> {
+        docs.push(doc)
+    });
+    return docs.length >0
+}
 export { authStudent, saveToLocalStorage, clearLocalStorage, getItemFromStorage, authSupervisor,getLevels,getDepartments,getCollege,findStudentById,addCandidateToAttendance,clearAttendance,getAttandanceList,updateBiometricStatus }
