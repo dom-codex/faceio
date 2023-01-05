@@ -27,7 +27,9 @@ const SignInPage =()=>{
             alert("invalid matric number/password")
             return
         }
-        saveToLocalStorage("student",student[0])
+        const dataToSave = {...student[0]}
+        delete dataToSave["snapshot"]
+        saveToLocalStorage("student",dataToSave)
         saveToLocalStorage("loggedIn",true)
         matricformHandler("")
         passwordFormHandler("")

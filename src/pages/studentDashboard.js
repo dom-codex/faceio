@@ -7,15 +7,17 @@ import Header from "../components/header"
 import IconButton from "../components/iconbutton"
 import { clearLocalStorage, getItemFromStorage,updateBiometricStatus } from "../data/database"
 import {getFaceIO} from "../faceio.js"
+import {updateDocument} from "../firebaseconfi"
 const StudentDashBoard = () => {
     const student = getItemFromStorage("student")
     const [biometricActive,setBiometricActive] = useState()
-    const [loaction, setLocation] = useLocation()
+    const [location, setLocation] = useLocation()
     const logoutHandler = () => {
         clearLocalStorage()
         setLocation("/student/login")
     }
     const faceBiometricHandler = async() => {
+        try{
     const fio = getFaceIO()
     const response = await fio.enroll({
         payload:{
@@ -23,8 +25,19 @@ const StudentDashBoard = () => {
             applicationId:student.applicationId
         }
     })
+    //a6dfecb80cc249dd978a830c3da3d031fioa363e
+    const docId = student.matric.split("/")[1]
+    await updateDocument("students",docId,{
+        facialBiometricActive:true,
+        faceId:response.facialId
+    })
     updateBiometricStatus(true)
     setBiometricActive(true)
+}catch(e){
+    alert("An error occurred, retry")
+    setLocation("/student/dashboard")
+    console.log(e)
+}
     }
     const formatData = (type) => {
         if (type == "personal") {

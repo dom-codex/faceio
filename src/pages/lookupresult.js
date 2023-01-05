@@ -32,6 +32,7 @@ const LookUpResult = ({matric})=>{
          const response = await fio.authenticate({
              locale: "auto"
          });
+         console.log(response)
          const applicationId = response.payload.applicationId
      setLocation(`/supervisor/lookup/${applicationId}`)
      } catch (e) {

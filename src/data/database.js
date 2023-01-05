@@ -116,7 +116,7 @@ const clearAttendance = ()=>{
     attendance = []
 }
 const updateBiometricStatus = (value)=>{
-    const student = JSON.parse(getItemFromStorage("student"))
+    const student = getItemFromStorage("student")
     saveToLocalStorage("student",{...student,facialBiometricActive:value})
 }
 //DATABASE METHODS
