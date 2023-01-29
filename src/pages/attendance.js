@@ -1,14 +1,14 @@
-import React,{useRef} from "react"
+import React,{useRef,useEffect,useState} from "react"
 import { useReactToPrint } from "react-to-print";
 import Header from "../components/header";
 import IconButton from "../components/iconbutton";
 import OptionsDialog from "../components/optionsdialog";
-import { getAttandanceList, getItemFromStorage } from "../data/database";
-
+import { getAttandanceList, getItemFromStorage,extractDocumentFromSnapShot } from "../data/database";
+import { findParticularDocument } from "../firebaseconfi";
+import GifLoader from "../components/loader"
 class AttendanceList extends React.Component{
     render (){
         const {supervisor,attendance,title} = this.props
-        console.log(attendance)
         return  <div className={"w-[75%] m-auto"}>
                 <p className={"text-center w-[65%] m-auto mt-4 font-bold"}> {title} </p>
             <div >
@@ -33,6 +33,8 @@ class AttendanceList extends React.Component{
 }
 const Attendance = ()=>{
   const table = useRef()
+  const [attendance,setAttendance] =useState([])
+  const [loader,setLoader]= useState(true)
   const renderTitle = ()=>{
     const exam = JSON.parse(getItemFromStorage("examDetails"))
     return `Attendance for ${exam.session} ${exam.level} ${exam.courseCode} ${exam.semester} Semester Examination -${exam.department} Department`
@@ -44,16 +46,34 @@ const Attendance = ()=>{
          // alert("printed")
       }
   })
-const supervisor = JSON.parse(getItemFromStorage("supervisor"))
-const attendance =getAttandanceList()
-
+const supervisor = getItemFromStorage("supervisor")
+//const attendance =getAttandanceList()
+const getAttandanceList=async()=>{
+    try{
+    const exam = JSON.parse(getItemFromStorage("examDetails"))
+    const session = exam.session.split("/")
+    const collection = `${session[0]}${session[1]}${exam.level}${exam.courseCode}`
+    const docSnap = await findParticularDocument("level",exam.level,collection)
+    const {data} = extractDocumentFromSnapShot(docSnap)
+    setAttendance(data)
+    setLoader(false)
+}catch(e){
+    console.log(e)
+    setLoader(false)
+}
+}
+useEffect(()=>{
+    getAttandanceList()
+},[])
 return <section>
     <Header text={""}/>
+    {loader?<GifLoader/>:<div>
 {false&&<OptionsDialog text={"Take me to homepage?"}/>}
 <AttendanceList ref={table} supervisor={supervisor.name} attendance={attendance} title={renderTitle()}/>
 <div className={"mt-4"}>
             <IconButton text={"Download as PDF"} handler={printDoc}/>
             </div>
+            </div>}
 </section>
 }
 export default Attendance;

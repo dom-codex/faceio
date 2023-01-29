@@ -75,7 +75,7 @@ const LookUpResult = ({ matric }) => {
     }
     const submitHandler = () => {
         showDialog("Are you sure you want to submit checklist?", async() => {
-            const examDetails = getItemFromStorage("examDetails")
+            const examDetails =JSON.parse( getItemFromStorage("examDetails"))
             //add student to attendance list
             const session = examDetails.session.split("/")
 

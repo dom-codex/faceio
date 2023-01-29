@@ -7,14 +7,20 @@ import Header from "../components/header"
 import IconButton from "../components/iconbutton"
 import { clearLocalStorage, getItemFromStorage,updateBiometricStatus } from "../data/database"
 import {getFaceIO} from "../faceio.js"
-import {updateDocument} from "../firebaseconfi"
+import {updateDocument,getStorageRef,getUrl} from "../firebaseconfi"
 const StudentDashBoard = () => {
     const student = getItemFromStorage("student")
     const [biometricActive,setBiometricActive] = useState()
+    const [url,setUrl] = useState("")
     const [location, setLocation] = useLocation()
     const logoutHandler = () => {
         clearLocalStorage()
         setLocation("/student/login")
+    }
+    const getImageUrl = async()=>{
+        const imgRef= getStorageRef(student.picId)
+       const imgUrl = await getUrl(imgRef)
+        setUrl(imgUrl)
     }
     const faceBiometricHandler = async() => {
         try{
@@ -47,10 +53,11 @@ const StudentDashBoard = () => {
     }
     useEffect(()=>{
         setBiometricActive(student.facialBiometricActive)
+        getImageUrl()
     },[])
     return <section>
         <Header text={"Student Dashboard"} />
-        <DashboardContainer name={student.name} matric={student.matric} handler={
+        <DashboardContainer url={url} name={student.name} matric={student.matric} handler={
             faceBiometricHandler
         } data={formatData("personal")} sdata={formatData("")} status={biometricActive} />
         <div>
