@@ -1,0 +1,11 @@
+{
+    "rules":{
+    "no-unused-vars": "off",
+    "default-case":"off",
+    "eqeqeq": "off",
+    "react-hooks/exhaustive-deps":"off",
+    "jsx-a11y/img-redundant-alt":"off",
+    "react/jsx-no-comment-textnodes":"off"
+
+}
+}

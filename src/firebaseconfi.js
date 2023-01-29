@@ -24,8 +24,8 @@ const initFirebaseApp=()=>{
     const firestore = getFirestore(app)
     const storage = getStorage(app)
    // connectAuthEmulator(auth,"http://localhost:9099")
-    connectFirestoreEmulator(firestore,"localhost",8080)
-   connectStorageEmulator(storage,"localhost",9199)
+    //connectFirestoreEmulator(firestore,"localhost",8080)
+  // connectStorageEmulator(storage,"localhost",9199)
   }
   initFirebaseApp()
 //FIREBASE FUNCTIONS
