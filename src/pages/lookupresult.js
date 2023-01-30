@@ -12,8 +12,14 @@ const LookUpResult = ({ matric }) => {
     const dialogRef = useRef()
     const [student, setStudent] = useState(null)
     const [loader,setLoader] = useState(true)
+    const [url,setUrl] = useState("")
     const [location, setLocation] = useLocation()
     // const student = findStudentById(matric)
+    const getImageUrl = async()=>{
+        const imgRef= getStorageRef(student.picId)
+       const imgUrl = await getUrl(imgRef)
+        setUrl(imgUrl)
+    }
     const showDialog = (text, p, n) => {
         dialogRef.current.displayDialog(text, p, n)
     }
@@ -102,9 +108,9 @@ const LookUpResult = ({ matric }) => {
         }
     }
     useEffect(() => {
+        getImageUrl()
         if (student == null) {
              findStudent()
-
         }
     }, [])
 
@@ -119,7 +125,7 @@ const LookUpResult = ({ matric }) => {
         <Header text={"Student Lookup result"} />
         <div className={"max-w-[760px] mx-auto"}>
         <p className={"mt-4 text-[1.35em] font-bsans text-sandyBrown text-center"}>Facial Lookup Result</p>
-        <DashboardContainer sdata={formatData("personal")} data={formatData()} handler={() => { }} hideBanner={true} name={student.name} matric={student.matric} />
+        <DashboardContainer url={url} sdata={formatData("personal")} data={formatData()} handler={() => { }} hideBanner={true} name={student.name} matric={student.matric} />
         <div className={"flex justify-center mb-4"}>
             <IconButton text={"Submit Checklist"} mode={"submit"} handler={submitHandler} />
             <IconButton text={"Next Candidate"} mode={"next"} handler={nextCandidateHandler} />
