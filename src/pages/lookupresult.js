@@ -6,7 +6,7 @@ import IconButton from "../components/iconbutton"
 import { addCandidateToAttendance, extractDocumentFromSnapShot, findStudentById, getFormattedTimeOnly, getItemFromStorage } from "../data/database"
 import OptionsDialog from "../components/optionsdialog"
 import { getFaceIO } from "../faceio"
-import { createNewDocument, findParticularDocument,getUrl } from "../firebaseconfi"
+import { createNewDocument, findParticularDocument,getUrl,getStorageRef } from "../firebaseconfi"
 import GifLoader from "../components/loader"
 const LookUpResult = ({ matric }) => {
     const dialogRef = useRef()
