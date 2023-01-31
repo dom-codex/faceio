@@ -102,7 +102,7 @@ const LookUpResult = ({ matric }) => {
             const { data } = extractDocumentFromSnapShot(docSnap)
             setStudent(data[0])
             setLoader(false)
-            getImageUrl()
+            await getImageUrl()
         } catch (e) {
             console.log(e)
             setLoader(false)
