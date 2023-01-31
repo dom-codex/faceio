@@ -15,8 +15,8 @@ const LookUpResult = ({ matric }) => {
     const [url,setUrl] = useState("")
     const [location, setLocation] = useLocation()
     // const student = findStudentById(matric)
-    const getImageUrl = async()=>{
-        const imgRef= getStorageRef(student.picId)
+    const getImageUrl = async(pic="")=>{
+        const imgRef= getStorageRef(pic)
        const imgUrl = await getUrl(imgRef)
         setUrl(imgUrl)
     }
@@ -102,7 +102,8 @@ const LookUpResult = ({ matric }) => {
             const { data } = extractDocumentFromSnapShot(docSnap)
             setStudent(data[0])
             setLoader(false)
-            await getImageUrl()
+            console.log(data[0])
+            await getImageUrl(data[0].picId)
         } catch (e) {
             console.log(e)
             setLoader(false)
