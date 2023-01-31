@@ -102,13 +102,13 @@ const LookUpResult = ({ matric }) => {
             const { data } = extractDocumentFromSnapShot(docSnap)
             setStudent(data[0])
             setLoader(false)
+            getImageUrl()
         } catch (e) {
             console.log(e)
             setLoader(false)
         }
     }
     useEffect(() => {
-        getImageUrl()
         if (student == null) {
              findStudent()
         }
